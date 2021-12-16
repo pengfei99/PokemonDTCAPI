@@ -16,4 +16,4 @@ spec:
               service:
                 name: pokemon-model-service
                 port:
-                  number: 80s
+                  number: 80

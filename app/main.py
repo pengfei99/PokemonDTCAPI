@@ -1,6 +1,6 @@
 import warnings
 from typing import List
-
+import os
 import joblib
 import mlflow
 import pandas as pd
@@ -35,7 +35,7 @@ def post_pokemon_type(pokemon: Pokemon):
     df.loc[0] = pd.Series({'hp': pokemon.hp, 'attack': pokemon.attack, 'defence': pokemon.defence,
                            'special_attack': pokemon.special_attack,
                            'special_defense': pokemon.special_defense, 'speed': pokemon.speed})
-    model = get_model("../models/model2.pkl")
+    model = get_model("/api/models/model2.pkl")
     res = bool(model.predict(df)[0])
     return {"is_legendary": res}
 
@@ -56,11 +56,18 @@ def get_pokemon_types(pokemons: List[Pokemon]):
     return {"is_legendary": results}
 
 
-def get_model(model_path: str):
+def get_model():
     # if model_path starts with a mlflow model path, use mlflow pyfunc to get the model
     # mlflow model must have blow formats:
-    # - f"models:/{model_name}/{version}"
     # - f"models:/{model_name}/{stage}"
+    # note env needs to contain "MLFLOW_MODEL_NAME" and MLFLOW_MODEL_STAGE
+    model_path: str=None
+    model_name: str=os.getenv("MLFLOW_MODEL_NAME")
+    model_stage: str=os.getenv("MLFLOW_MODEL_STAGE")
+    if model_name and model_stage:
+        model_path=f"models:/{model_name}/{stage}"
+    else:
+        model_path="/api/models/model2.pkl"
     if model_path.startswith("models"):
         model = mlflow.pyfunc.load_model(
             model_uri=model_path
