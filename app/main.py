@@ -18,13 +18,16 @@ class Pokemon(BaseModel):
     special_defense: int
     speed: int
 
+@pokemon_app.get("/")
+def show_welcome_page():
+    return{"Message": "Welcome to pokemon api"}
 
 @pokemon_app.get("/pokemon-type")
 def get_pokemon_type(hp: int, attack: int, defence: int, special_attack: int, special_defense: int, speed: int):
     df = pd.DataFrame(columns=["hp", "attack", "defence", "special_attack", "special_defense", "speed"])
     df.loc[0] = pd.Series({'hp': hp, 'attack': attack, 'defence': defence, 'special_attack': special_attack,
                            'special_defense': special_defense, 'speed': speed})
-    model = get_model("../models/model2.pkl")
+    model = get_model()
     res = bool(model.predict(df)[0])
     return {"is_legendary": res}
 
@@ -35,7 +38,7 @@ def post_pokemon_type(pokemon: Pokemon):
     df.loc[0] = pd.Series({'hp': pokemon.hp, 'attack': pokemon.attack, 'defence': pokemon.defence,
                            'special_attack': pokemon.special_attack,
                            'special_defense': pokemon.special_defense, 'speed': pokemon.speed})
-    model = get_model("/api/models/model2.pkl")
+    model = get_model()
     res = bool(model.predict(df)[0])
     return {"is_legendary": res}
 
@@ -49,7 +52,7 @@ def get_pokemon_types(pokemons: List[Pokemon]):
                                'special_attack': pokemon.special_attack,
                                'special_defense': pokemon.special_defense, 'speed': pokemon.speed})
         i += 1
-    model = get_model("../models/model2.pkl")
+    model = get_model()
     results = []
     for r in model.predict(df):
         results.append(bool(r))
