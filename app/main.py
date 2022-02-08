@@ -1,6 +1,7 @@
+import os
 import warnings
 from typing import List
-import os
+
 import joblib
 import mlflow
 import pandas as pd
@@ -18,9 +19,11 @@ class Pokemon(BaseModel):
     special_defense: int
     speed: int
 
+
 @pokemon_app.get("/")
 def show_welcome_page():
-    return{"Message": "Welcome to pokemon api"}
+    return {"Message": "Welcome to pokemon api"}
+
 
 @pokemon_app.get("/pokemon-type")
 def get_pokemon_type(hp: int, attack: int, defence: int, special_attack: int, special_defense: int, speed: int):
@@ -62,15 +65,15 @@ def get_pokemon_types(pokemons: List[Pokemon]):
 def get_model():
     # if model_path starts with a mlflow model path, use mlflow pyfunc to get the model
     # mlflow model must have blow formats:
-    # - f"models:/{model_name}/{stage}"
-    # note env needs to contain "MLFLOW_MODEL_NAME" and MLFLOW_MODEL_STAGE
-    model_path: str=None
-    model_name: str=os.getenv("MLFLOW_MODEL_NAME")
-    model_stage: str=os.getenv("MLFLOW_MODEL_STAGE")
-    if model_name and model_stage:
-        model_path=f"models:/{model_name}/{stage}"
+    # - f"models:/{model_name}/{model_version}"
+    # note env needs to contain "MLFLOW_MODEL_NAME" and MLFLOW_MODEL_VERSION
+    model_path: str = None
+    model_name: str = os.getenv("MLFLOW_MODEL_NAME")
+    model_version: str = os.getenv("MLFLOW_MODEL_VERSION")
+    if model_name and model_version:
+        model_path = f"models:/{model_name}/{model_version}"
     else:
-        model_path="/api/models/model2.pkl"
+        model_path = "/api/models/model2.pkl"
     if model_path.startswith("models"):
         model = mlflow.pyfunc.load_model(
             model_uri=model_path
