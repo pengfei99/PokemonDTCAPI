@@ -21,16 +21,16 @@ spec:
             # env var for s3 connexion
             - name: MLFLOW_S3_ENDPOINT_URL
               value: https://minio.lab.sspcloud.fr
-#            - name: AWS_ACCESS_KEY_ID
-#              valueFrom:
-#                secretKeyRef:
-#                  name: mlflow-minio-cred
-#                  key: accessKey
-#            - name: AWS_SECRET_ACCESS_KEY
-#              valueFrom:
-#                secretKeyRef:
-#                  name: mlflow-minio-cred
-#                  key: secretKey
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: my-s3-creds
+                  key: accessKey
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: my-s3-creds
+                  key: secretKey
             - name: AWS_DEFAULT_REGION
               value: us-east-1
             - name: MLFLOW_S3_BUCKET_NAME
@@ -41,10 +41,10 @@ spec:
             - name: MLFLOW_TRACKING_URI
               value: https://mlflow.lab.sspcloud.fr
             # env var for setting models uri which will be deployed
-            # - name: MLFLOW_MODEL_NAME
-            #   value: test
-            # - name: MLFLOW_MODEL_STAGE
-            #   value: Production
+           - name: MLFLOW_MODEL_NAME
+             value: pokemon
+           - name: MLFLOW_MODEL_VERSION
+             value: 1
           ports:
             - name: http
               containerPort: 8000
