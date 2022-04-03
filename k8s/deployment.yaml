@@ -39,12 +39,12 @@ spec:
               value: dev-models-repo
             # env var for setting mlflow model registry server
             - name: MLFLOW_TRACKING_URI
-              value: https://mlflow.lab.sspcloud.fr
+              value: https://user-pengfei-941628.kub.sspcloud.fr/
             # env var for setting models uri which will be deployed
-           - name: MLFLOW_MODEL_NAME
-             value: pokemon
-           - name: MLFLOW_MODEL_VERSION
-             value: 1
+            - name: MLFLOW_MODEL_NAME
+              value: pokemon
+            - name: MLFLOW_MODEL_VERSION
+              value: "1"
           ports:
             - name: http
               containerPort: 8000
