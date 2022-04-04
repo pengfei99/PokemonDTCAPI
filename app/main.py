@@ -22,7 +22,11 @@ class Pokemon(BaseModel):
 
 @pokemon_app.get("/")
 def show_welcome_page():
-    return {"Message": "Welcome to pokemon api"}
+    model_name: str = os.getenv("MLFLOW_MODEL_NAME")
+    model_version: str = os.getenv("MLFLOW_MODEL_VERSION")
+    return {"Message": "Welcome to pokemon api",
+            "Model_name": f"{model_name}",
+            "Model_version": f"{model_version}"}
 
 
 @pokemon_app.get("/pokemon-type")
