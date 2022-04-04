@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: pokemon-app
-          image: liupengfei99/pokemon-api:main
+          image: liupengfei99/pokemon-api:latest
           imagePullPolicy: Always
           env:
             # env var for s3 connexion
