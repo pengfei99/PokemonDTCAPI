@@ -3,4 +3,4 @@ pydantic>=1.8.0,<2.0.0
 uvicorn>=0.15.0,<0.16.0
 mlflow>=1.22
 scikit-learn>=1.0.1
-boto
+boto3
