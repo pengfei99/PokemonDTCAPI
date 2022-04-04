@@ -24,19 +24,15 @@ spec:
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
-                  name: my-s3-creds
+                  name: my-s3-creds.yaml
                   key: accessKey
             - name: AWS_SECRET_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
-                  name: my-s3-creds
+                  name: my-s3-creds.yaml
                   key: secretKey
             - name: AWS_DEFAULT_REGION
               value: us-east-1
-            - name: MLFLOW_S3_BUCKET_NAME
-              value: projet-mlflow-registry
-            - name: MLFLOW_S3_PATH
-              value: dev-models-repo
             # env var for setting mlflow model registry server
             - name: MLFLOW_TRACKING_URI
               value: https://user-pengfei-474302.kub.sspcloud.fr/
