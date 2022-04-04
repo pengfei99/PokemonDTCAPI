@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: pokemon-app
+  name: pokemon-api
 spec:
   project: default
   source:

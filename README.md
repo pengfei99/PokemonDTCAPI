@@ -71,5 +71,12 @@ As we can't put the real password and login in git, so the 'my-s3-creds.yaml' is
 password and login. So we don't want the Argo CD to monitor this file. That's why we put it in another folder called
 **template**
 
+### Deploy argo cd specification
 
+To deploy the argo cd specification, the easiest way is to use the web ui of the argo cd. Open it and create a new app
+then click on the `edit as yaml` button. Copy the file **argocd/pokemon-api-app.yaml** in it.
+
+If everything works well, you should see below figure
+
+![pokemon_argo_cd](images/pokemon_argo_cd.PNG)
 
